@@ -74,8 +74,9 @@ PROFILE_PATH="$BUILD_DIR/.profile.d/ffmpeg.sh"
 mkdir -p $(dirname $PROFILE_PATH)
 echo 'export PATH="$PATH:${HOME}/vendor/ffmpeg"' >> $PROFILE_PATH
 
-./configure --enable-libfreetype
+./ffmpeg/configure --enable-libfreetype
 make
 make install  
+
 
 echo "Installation successful" | output
