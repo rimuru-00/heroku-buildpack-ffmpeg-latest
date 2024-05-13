@@ -36,17 +36,18 @@ BUILD_DIR=${1:-}
 ENV_DIR=${3:-}
 VENDOR_DIR="vendor"
 FFMPEG_ARCHIVE_NAME="ffmpeg.tar.xz"
-FFMPEG_DIR="$VENDOR_DIR/ffmpeg"
 
 export_env_dir $ENV_DIR
 
 cd $BUILD_DIR
 mkdir -p $VENDOR_DIR
 cd $VENDOR_DIR
+mkdir -p ffmpeg
+cd ffmpeg
 
 if [[ -z $FFMPEG_DOWNLOAD_URL ]]; then
   echo "Variable FFMPEG_DOWNLOAD_URL isn't set, using default value" | output
-  FFMPEG_DOWNLOAD_URL="https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-amd64-static.tar.xz"
+  FFMPEG_DOWNLOAD_URL="https://github.com/FFmpeg/FFmpeg.git"
 fi
 
 echo "Downloading $FFMPEG_DOWNLOAD_URL" | output
@@ -59,14 +60,16 @@ fi
 
 echo "Unpacking the archive" | output
 
-tar xJf "./$FFMPEG_ARCHIVE_NAME"
+tar xJf "./$FFMPEG_ARCHIVE_NAME" --strip-components=1
 
 if [ "$?" != "0" ]; then
   echo "Failed to unpack" | output && exit 1
 fi
 
-echo "Installation successful" | output 
+rm $FFMPEG_ARCHIVE_NAME
 
 PROFILE_PATH="$BUILD_DIR/.profile.d/ffmpeg.sh"
 mkdir -p $(dirname $PROFILE_PATH)
 echo 'export PATH="$PATH:${HOME}/vendor/ffmpeg"' >> $PROFILE_PATH
+
+echo "Installation successful" | output
