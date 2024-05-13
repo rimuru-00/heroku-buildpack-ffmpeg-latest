@@ -72,4 +72,14 @@ PROFILE_PATH="$BUILD_DIR/.profile.d/ffmpeg.sh"
 mkdir -p $(dirname $PROFILE_PATH)
 echo 'export PATH="$PATH:${HOME}/vendor/ffmpeg"' >> $PROFILE_PATH
 
-echo "Installation successful" | output
+echo "Installation successful" | output 
+
+echo "Adding --enable-libfreetype flag for drawtext filter" | output
+cd ffmpeg
+./configure --enable-libfreetype
+
+echo "Recompiling FFmpeg with drawtext support" | output
+make
+make install
+
+echo "FFmpeg recompilation successful" | output 
