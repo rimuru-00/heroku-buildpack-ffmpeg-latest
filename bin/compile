@@ -74,9 +74,8 @@ PROFILE_PATH="$BUILD_DIR/.profile.d/ffmpeg.sh"
 mkdir -p $(dirname $PROFILE_PATH)
 echo 'export PATH="$PATH:${HOME}/vendor/ffmpeg"' >> $PROFILE_PATH
 
-./ffmpeg/configure --enable-libfreetype
-make
-make install  
+apt-get update
+apt-get install -y libfreetype6-dev   
 
 
 echo "Installation successful" | output
