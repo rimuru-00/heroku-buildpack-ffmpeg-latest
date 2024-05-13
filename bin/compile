@@ -47,7 +47,7 @@ cd ffmpeg
 
 if [[ -z $FFMPEG_DOWNLOAD_URL ]]; then
   echo "Variable FFMPEG_DOWNLOAD_URL isn't set, using default value" | output
-  FFMPEG_DOWNLOAD_URL="https://github.com/FFmpeg/FFmpeg/archive/master.tar.gz" 
+  FFMPEG_DOWNLOAD_URL="https://ffmpeg.org/releases/ffmpeg-7.0.tar.xz" 
 fi
 
 echo "Downloading $FFMPEG_DOWNLOAD_URL" | output
